@@ -1,0 +1,25 @@
+{
+  "name": "ai-mess-food-nutrition-analyzer",
+  "version": "1.0.0",
+  "description": "An AI-powered web app that analyzes mess and cafeteria food images to estimate nutritional value, track history, and compute health stats.",
+  "main": "api/analyze.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "nutrition",
+    "gemini",
+    "ai",
+    "food-analyzer",
+    "vercel",
+    "serverless"
+  ],
+  "author": "Antigravity AI",
+  "license": "MIT"
+}

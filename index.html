@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriMess AI - Mess Food Nutrition Analyzer</title>
+  <meta name="description" content="Analyze your mess and cafeteria meals instantly with AI. Get calories, macronutrients, health scores, and expert nutrition tips.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- html2pdf.js for report export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+  
+  <!-- Header / Navigation -->
+  <header>
+    <div class="header-container container">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-leaf"></i>
+        <span>NutriMess <span class="accent-text">AI</span></span>
+      </a>
+      <nav class="nav-menu">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#analyzer" class="nav-link">Analyze</a>
+        <a href="#calculators" class="nav-link">Calculators</a>
+        <a href="#history" class="nav-link">History</a>
+      </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="#analyzer" class="btn btn-primary btn-sm btn-header">Analyze Plate</a>
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav">
+    <a href="#hero" class="mobile-nav-link">Home</a>
+    <a href="#analyzer" class="mobile-nav-link">Analyze</a>
+    <a href="#calculators" class="mobile-nav-link">Calculators</a>
+    <a href="#history" class="mobile-nav-link">History</a>
+    <a href="#analyzer" class="btn btn-primary w-full text-center mt-4">Analyze Plate</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="badge badge-success-light"><i class="fa-solid fa-sparkles"></i> AI-Powered Nutrition</span>
+        <h1>Track Mess Food, <br><span class="gradient-text">Optimize Your Health</span></h1>
+        <p class="hero-lead">Don't guess what's on your cafeteria plate. Take a photo of your mess food and let our advanced AI instantly estimate calories, protein, carbs, fats, and overall health balance.</p>
+        <div class="hero-actions">
+          <a href="#analyzer" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-camera mr-2"></i> Analyze Your Meal
+          </a>
+          <a href="#calculators" class="btn btn-secondary btn-lg">
+            Calculate Macros
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-val">98%</span>
+            <span class="stat-lbl">AI Accuracy</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">&lt;5s</span>
+            <span class="stat-lbl">Analysis Time</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">Free</span>
+            <span class="stat-lbl">No Account Needed</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-card card-nutrition animate-float">
+          <div class="card-nutri-header">
+            <i class="fa-solid fa-circle-check text-success"></i>
+            <div>
+              <p class="card-nutri-title">Balanced Meal</p>
+              <p class="card-nutri-sub">Health Score: 85/100</p>
+            </div>
+          </div>
+          <div class="card-nutri-bars">
+            <div class="nutri-mini-bar">
+              <span>Protein</span>
+              <div class="mini-bar-bg"><div class="mini-bar-fill" style="width: 75%;"></div></div>
+            </div>
+            <div class="nutri-mini-bar">
+              <span>Carbs</span>
+              <div class="mini-bar-bg"><div class="mini-bar-fill" style="width: 45%;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-card card-health animate-float-delayed">
+          <div class="circle-score-wrap">
+            <svg viewBox="0 0 36 36" class="circular-chart green">
+              <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="circle" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <text x="18" y="20.35" class="percentage">85</text>
+            </svg>
+            <span class="circle-lbl">Health Index</span>
+          </div>
+        </div>
+        <div class="hero-image-wrap">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=600" alt="Healthy Plate" class="hero-main-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section container">
+    <div class="section-header">
+      <h2>Smart Features for Smarter Eating</h2>
+      <p>Everything you need to analyze, calculate, and log your daily nutrition values.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card glass-card">
+        <div class="feature-icon bg-success-light">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <h3>Gemini Vision AI</h3>
+        <p>Advanced recognition algorithms identify components of multi-item plates like mess thalis and estimate portion weights.</p>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="feature-icon bg-info-light">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <h3>Nutrition Metrics</h3>
+        <p>Get immediate approximations for Calories, Proteins, Carbohydrates, and Fats to align with your health targets.</p>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="feature-icon bg-warning-light">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <h3>Dietary Advisory</h3>
+        <p>Identifies structural pros and cons of your meal and provides actionable recommendations to optimize nutrients.</p>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="feature-icon bg-danger-light">
+          <i class="fa-solid fa-file-pdf"></i>
+        </div>
+        <h3>PDF Reports</h3>
+        <p>Generate clean, beautifully formatted nutrition summaries of your meal analysis for sharing or saving.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analyzer Section -->
+  <section id="analyzer" class="analyzer-section container">
+    <div class="section-header">
+      <h2>Analyze Your Plate</h2>
+      <p>Snap a picture of your meal, upload it below, and get a dietitian-level breakdown instantly.</p>
+    </div>
+
+    <div class="analyzer-grid">
+      <!-- Upload Card -->
+      <div class="card glass-card upload-container">
+        <div id="drop-zone" class="drop-zone">
+          <div class="drop-zone-content">
+            <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+            <h3>Drag & Drop your image here</h3>
+            <p>Supports JPG, JPEG, and PNG</p>
+            <span class="or-divider">OR</span>
+            <button class="btn btn-secondary btn-sm" id="browse-btn">Browse Files</button>
+          </div>
+          <input type="file" id="image-upload" accept="image/*" class="hidden-input">
+          <div id="preview-container" class="preview-container hidden">
+            <img id="image-preview" src="" alt="Food preview">
+            <button id="remove-img-btn" class="remove-btn" aria-label="Remove Image"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        
+        <button id="analyze-btn" class="btn btn-primary w-full mt-4" disabled>
+          <i class="fa-solid fa-sparkles"></i> Analyze Nutrition
+        </button>
+
+        <div id="analysis-loader" class="loader-overlay hidden">
+          <div class="loader-content">
+            <div class="spinner"></div>
+            <h4 id="loader-status">Uploading Plate...</h4>
+            <p class="loader-sub">Powered by Gemini 1.5 Flash Vision API</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="results-wrapper">
+        <!-- Placeholder when no data -->
+        <div id="results-placeholder" class="card glass-card flex-center flex-column text-center h-full py-8">
+          <div class="placeholder-icon">
+            <i class="fa-solid fa-plate-wheat"></i>
+          </div>
+          <h3>Awaiting Meal Photo</h3>
+          <p>Please upload a clear image of your meal thali or plate and click "Analyze Nutrition" to view detailed metrics here.</p>
+        </div>
+
+        <!-- Real Results (hidden by default) -->
+        <div id="results-panel" class="hidden">
+          <div id="pdf-report-area">
+            <div class="card glass-card results-card">
+              <!-- PDF Header (Hidden on Page, Shown in PDF) -->
+              <div class="pdf-only-header">
+                <div class="pdf-logo">
+                  <i class="fa-solid fa-leaf text-success"></i>
+                  <span>NutriMess AI - Meal Analysis Report</span>
+                </div>
+                <div id="pdf-date" class="pdf-date">Date: 2026-06-06</div>
+              </div>
+
+              <div class="results-header-row">
+                <div>
+                  <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Analysis Complete</span>
+                  <h3 class="mt-2 mb-1">Meal Nutrition Dashboard</h3>
+                  <p class="text-muted text-sm" id="result-timestamp"></p>
+                </div>
+                <div class="actions-group no-print" data-html2canvas-ignore="true">
+                  <button id="download-report-btn" class="btn btn-outline btn-sm">
+                    <i class="fa-solid fa-file-pdf mr-1"></i> PDF Report
+                  </button>
+                  <button id="save-history-btn" class="btn btn-success-light btn-sm ml-2">
+                    <i class="fa-solid fa-bookmark mr-1"></i> Save Report
+                  </button>
+                </div>
+              </div>
+
+              <!-- Main Results Grid -->
+              <div class="results-grid mt-4">
+                <!-- Health Score Ring -->
+                <div class="health-score-container glass-card">
+                  <h4>Health Score</h4>
+                  <div class="circle-score-wrap large-circle">
+                    <svg viewBox="0 0 36 36" class="circular-chart" id="result-health-ring">
+                      <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <path class="circle" id="score-ring-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <text x="18" y="20.35" class="percentage" id="result-health-score">0</text>
+                    </svg>
+                  </div>
+                  <p class="text-center text-sm font-medium mt-2" id="health-score-label">Neutral</p>
+                </div>
+
+                <!-- Macronutrients List -->
+                <div class="macro-container glass-card">
+                  <h4>Macronutrient Estimates</h4>
+                  
+                  <div class="macro-list">
+                    <!-- Calories -->
+                    <div class="macro-row">
+                      <div class="macro-info">
+                        <span class="macro-name"><i class="fa-solid fa-fire text-danger"></i> Energy (Calories)</span>
+                        <span class="macro-value" id="result-calories">0 kcal</span>
+                      </div>
+                      <div class="progress-bar-bg">
+                        <div class="progress-bar-fill bg-danger" id="calories-progress" style="width: 0%;"></div>
+                      </div>
+                    </div>
+                    <!-- Protein -->
+                    <div class="macro-row">
+                      <div class="macro-info">
+                        <span class="macro-name"><i class="fa-solid fa-egg text-primary"></i> Protein</span>
+                        <span class="macro-value" id="result-protein">0g</span>
+                      </div>
+                      <div class="progress-bar-bg">
+                        <div class="progress-bar-fill bg-primary" id="protein-progress" style="width: 0%;"></div>
+                      </div>
+                    </div>
+                    <!-- Carbs -->
+                    <div class="macro-row">
+                      <div class="macro-info">
+                        <span class="macro-name"><i class="fa-solid fa-wheat-awn text-warning"></i> Carbohydrates</span>
+                        <span class="macro-value" id="result-carbs">0g</span>
+                      </div>
+                      <div class="progress-bar-bg">
+                        <div class="progress-bar-fill bg-warning" id="carbs-progress" style="width: 0%;"></div>
+                      </div>
+                    </div>
+                    <!-- Fats -->
+                    <div class="macro-row">
+                      <div class="macro-info">
+                        <span class="macro-name"><i class="fa-solid fa-droplet text-info"></i> Fats</span>
+                        <span class="macro-value" id="result-fats">0g</span>
+                      </div>
+                      <div class="progress-bar-bg">
+                        <div class="progress-bar-fill bg-info" id="fats-progress" style="width: 0%;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Food items identified -->
+              <div class="glass-card mt-4">
+                <h4>Detected Food Items</h4>
+                <div class="badge-list mt-2" id="result-food-items">
+                  <!-- Badges will go here -->
+                </div>
+              </div>
+
+              <!-- Feedback: Strengths, Weaknesses, Suggestions -->
+              <div class="suggestions-grid mt-4">
+                <div class="glass-card strength-card">
+                  <h4><i class="fa-solid fa-circle-check text-success mr-2"></i> Nutritional Strengths</h4>
+                  <ul class="bullet-list" id="result-strengths"></ul>
+                </div>
+                <div class="glass-card weakness-card">
+                  <h4><i class="fa-solid fa-circle-exclamation text-danger mr-2"></i> Areas of Improvement</h4>
+                  <ul class="bullet-list" id="result-weaknesses"></ul>
+                </div>
+              </div>
+
+              <div class="glass-card mt-4 suggestions-card">
+                <h4><i class="fa-solid fa-lightbulb text-warning mr-2"></i> Dietitian Suggestions</h4>
+                <ul class="bullet-list" id="result-suggestions"></ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculators Section -->
+  <section id="calculators" class="calculators-section container">
+    <div class="section-header">
+      <h2>Health & Calorie Calculators</h2>
+      <p>Calculate your Body Mass Index (BMI) and determine your daily caloric requirements based on personal goals.</p>
+    </div>
+
+    <div class="calc-tabs">
+      <button class="calc-tab-btn active" data-tab="bmi-calc">
+        <i class="fa-solid fa-weight-scale mr-2"></i> BMI Calculator
+      </button>
+      <button class="calc-tab-btn" data-tab="calorie-calc">
+        <i class="fa-solid fa-calculator mr-2"></i> Daily Calorie Calculator
+      </button>
+    </div>
+
+    <!-- BMI Calculator Card -->
+    <div id="bmi-calc" class="calc-content-pane card glass-card active">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <h3>Body Mass Index (BMI)</h3>
+          <p class="text-sm text-muted mb-4">Calculate whether your weight is within a healthy proportion for your height.</p>
+          
+          <div class="unit-system-toggle mb-3">
+            <button class="unit-btn active" id="bmi-metric-btn">Metric (kg/cm)</button>
+            <button class="unit-btn" id="bmi-imperial-btn">Imperial (lbs/ft-in)</button>
+          </div>
+
+          <form id="bmi-form">
+            <!-- Weight Input -->
+            <div class="input-group">
+              <label for="bmi-weight" id="lbl-weight">Weight (kg)</label>
+              <input type="number" id="bmi-weight" placeholder="e.g. 70" required min="1" step="any">
+            </div>
+
+            <!-- Metric Height Input -->
+            <div class="input-group" id="height-metric-group">
+              <label for="bmi-height-cm">Height (cm)</label>
+              <input type="number" id="bmi-height-cm" placeholder="e.g. 175" required min="1" step="any">
+            </div>
+
+            <!-- Imperial Height Inputs -->
+            <div class="input-row hidden" id="height-imperial-group">
+              <div class="input-group">
+                <label for="bmi-height-ft">Height (Feet)</label>
+                <input type="number" id="bmi-height-ft" placeholder="e.g. 5" min="1" max="8">
+              </div>
+              <div class="input-group">
+                <label for="bmi-height-in">Height (Inches)</label>
+                <input type="number" id="bmi-height-in" placeholder="e.g. 9" min="0" max="11">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mt-2">Calculate BMI</button>
+          </form>
+        </div>
+
+        <div class="calc-results flex-center flex-column">
+          <!-- Placeholder before calculation -->
+          <div id="bmi-result-placeholder" class="text-center">
+            <i class="fa-solid fa-weight-scale placeholder-calc-icon"></i>
+            <p>Enter your details and click calculate to view your BMI score and health classification.</p>
+          </div>
+
+          <!-- Calculated Results -->
+          <div id="bmi-result-display" class="hidden w-full text-center">
+            <span class="bmi-score-badge" id="bmi-score">22.9</span>
+            <h4 class="mt-3 mb-1" id="bmi-status">Normal Weight</h4>
+            <p class="text-sm text-muted mb-4" id="bmi-suggestion">You are in a healthy weight range.</p>
+
+            <div class="bmi-meter">
+              <div class="bmi-meter-labels">
+                <span>18.5</span>
+                <span>25.0</span>
+                <span>30.0</span>
+              </div>
+              <div class="bmi-meter-bar">
+                <div class="bmi-marker underweight" style="width: 25%"></div>
+                <div class="bmi-marker normal" style="width: 25%"></div>
+                <div class="bmi-marker overweight" style="width: 25%"></div>
+                <div class="bmi-marker obese" style="width: 25%"></div>
+                <div class="bmi-pointer" id="bmi-pointer" style="left: 50%;"></div>
+              </div>
+              <div class="bmi-meter-desc">
+                <span class="color-dot underweight"></span> Under
+                <span class="color-dot normal"></span> Normal
+                <span class="color-dot overweight"></span> Over
+                <span class="color-dot obese"></span> Obese
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Calorie Calculator Card -->
+    <div id="calorie-calc" class="calc-content-pane card glass-card">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <h3>Daily Calorie & Macro Target</h3>
+          <p class="text-sm text-muted mb-4">Determine your daily calorie needs based on the Mifflin-St Jeor formula and find your target macronutrient distribution.</p>
+          
+          <form id="calorie-form">
+            <div class="input-row">
+              <div class="input-group">
+                <label for="calc-gender">Gender</label>
+                <select id="calc-gender" required>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="calc-age">Age (Years)</label>
+                <input type="number" id="calc-age" placeholder="e.g. 21" required min="1" max="120">
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div class="input-group">
+                <label for="calc-weight">Weight (kg)</label>
+                <input type="number" id="calc-weight" placeholder="e.g. 70" required min="1" step="any">
+              </div>
+              <div class="input-group">
+                <label for="calc-height">Height (cm)</label>
+                <input type="number" id="calc-height" placeholder="e.g. 175" required min="1" step="any">
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="calc-activity">Activity Level</label>
+              <select id="calc-activity" required>
+                <option value="1.2">Sedentary (Little/no exercise)</option>
+                <option value="1.375">Lightly Active (Exercise 1-3 days/week)</option>
+                <option value="1.55" selected>Moderately Active (Exercise 3-5 days/week)</option>
+                <option value="1.725">Very Active (Hard exercise 6-7 days/week)</option>
+                <option value="1.9">Super Active (Physical job or heavy training)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="calc-goal">Fitness Goal</label>
+              <select id="calc-goal" required>
+                <option value="lose-heavy">Weight Loss (-500 kcal)</option>
+                <option value="lose-light">Mild Weight Loss (-250 kcal)</option>
+                <option value="maintain" selected>Maintain Weight</option>
+                <option value="gain-light">Mild Weight Gain (+250 kcal)</option>
+                <option value="gain-heavy">Weight Gain (+500 kcal)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mt-2">Calculate Calories</button>
+          </form>
+        </div>
+
+        <div class="calc-results flex-center flex-column">
+          <!-- Placeholder before calculation -->
+          <div id="calorie-result-placeholder" class="text-center">
+            <i class="fa-solid fa-calculator placeholder-calc-icon"></i>
+            <p>Enter your daily metrics and physical goal to compute your Total Daily Energy Expenditure (TDEE) and optimal macros.</p>
+          </div>
+
+          <!-- Calculated Results -->
+          <div id="calorie-result-display" class="hidden w-full">
+            <div class="calorie-header text-center">
+              <span class="calorie-badge" id="calorie-tdee">2,450</span>
+              <p class="text-sm font-semibold uppercase tracking-wider text-muted mt-2">Daily Target Calories (kcal)</p>
+            </div>
+            
+            <h4 class="mt-4 mb-2 text-center">Recommended Macro Split</h4>
+            <div class="macro-split-grid mt-2">
+              <div class="macro-split-card bg-primary-light">
+                <span class="macro-split-name">Protein</span>
+                <span class="macro-split-val" id="macro-split-protein">150g</span>
+                <span class="macro-split-pct">(30%)</span>
+              </div>
+              <div class="macro-split-card bg-warning-light">
+                <span class="macro-split-name">Carbs</span>
+                <span class="macro-split-val" id="macro-split-carbs">245g</span>
+                <span class="macro-split-pct">(40%)</span>
+              </div>
+              <div class="macro-split-card bg-info-light">
+                <span class="macro-split-name">Fats</span>
+                <span class="macro-split-val" id="macro-split-fats">81g</span>
+                <span class="macro-split-pct">(30%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History Section -->
+  <section id="history" class="history-section container">
+    <div class="section-header">
+      <h2>Your Meal History</h2>
+      <p>Review your previously analyzed meals and track your nutrition trends over time. Stored securely in LocalStorage.</p>
+    </div>
+
+    <div class="card glass-card">
+      <div class="history-header-bar">
+        <h3>Saved Analyses</h3>
+        <button id="clear-history-btn" class="btn btn-danger-light btn-sm hidden">
+          <i class="fa-solid fa-trash mr-1"></i> Clear All History
+        </button>
+      </div>
+
+      <!-- History list -->
+      <div id="history-list-placeholder" class="text-center py-6">
+        <i class="fa-solid fa-folder-open text-muted" style="font-size: 3rem; opacity: 0.5;"></i>
+        <h4 class="mt-3">No History Found</h4>
+        <p class="text-muted text-sm">Your analyzed plates will appear here once saved.</p>
+      </div>
+
+      <div class="table-responsive">
+        <table id="history-table" class="history-table hidden">
+          <thead>
+            <tr>
+              <th>Meal</th>
+              <th>Date</th>
+              <th>Health Score</th>
+              <th>Calories</th>
+              <th>Macros (P / C / F)</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <!-- Row template inserted dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-leaf"></i>
+          <span>NutriMess <span class="accent-text">AI</span></span>
+        </a>
+        <p>Providing students and professionals transparency into cafeteria meal nutrition using Google Gemini AI.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="#hero">Home</a>
+        <a href="#analyzer">Analyze</a>
+        <a href="#calculators">Calculators</a>
+        <a href="#history">History</a>
+      </div>
+      <div class="footer-disclaimer">
+        <h4>Disclaimer</h4>
+        <p>Nutritional estimates are powered by artificial intelligence and should be considered approximations. For clinical dietary plans, please consult a certified medical practitioner or nutritionist.</p>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <p>&copy; 2026 NutriMess AI. Empowered by Gemini Vision. Safe for public GitHub.</p>
+    </div>
+  </footer>
+
+  <!-- Core Javascript -->
+  <script src="script.js"></script>
+</body>
+</html>
